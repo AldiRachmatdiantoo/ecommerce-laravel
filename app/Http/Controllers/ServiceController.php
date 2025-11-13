@@ -72,7 +72,8 @@ class ServiceController extends Controller
      */
     public function edit(Service $service)
     {
-        //
+        $product = Service::findOrFail($service->id);
+        return view('admin.service.edit', compact('service'));
     }
 
     /**
@@ -80,7 +81,16 @@ class ServiceController extends Controller
      */
     public function update(Request $request, Service $service)
     {
-        //
+        $image_url = $this->handleImage($request) ?? $service->image_url;
+        $service->update([
+            'title' => $request->title,
+            'description' => $request->description,
+            'price' => $request->price,
+            'duration' => $request->duration,
+            'status' => $request->status,
+            'image_url' => $image_url
+        ]);
+        return redirect()->route('admin.service.index');
     }
 
     /**
@@ -88,6 +98,20 @@ class ServiceController extends Controller
      */
     public function destroy(Service $service)
     {
-        //
+        $service->delete();
+        return redirect()->route('admin.service.index');
+    }
+    public function handleImage(Request $request)
+    {
+        if ($request->hasFile('image')) {
+            $file = $request->file('image');
+
+            //ubah nama
+            $imgName = time() . '_' . $file->getClientOriginalName();
+
+            $file->move(public_path('uploads/image'), $imgName);
+            $image_url = asset('/uploads/image/' . $imgName);
+            return $image_url;
+        }
     }
 }

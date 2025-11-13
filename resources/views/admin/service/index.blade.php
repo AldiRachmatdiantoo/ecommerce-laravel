@@ -56,10 +56,10 @@
                         </td>
                         <td class="text-center">
                             <div class="d-flex flex-wrap justify-content-center gap-1">
-                                <a href="" class="btn btn-sm btn-warning" title="Edit Service">
+                                <a href="{{route('admin.service.edit', $service->id)}}" class="btn btn-sm btn-warning" title="Edit Service">
                                     <i class="bi bi-pencil"></i>
                                 </a>
-                                <form action="" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus service ini?');">
+                                <form action="{{route('admin.service.destroy', $service->id)}}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus service ini?');">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="btn btn-sm btn-danger" title="Hapus Service">

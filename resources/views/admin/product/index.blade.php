@@ -50,10 +50,10 @@
                         </td>
                         <td>
                             <div class="d-flex flex-nowrap justify-content-center gap-1"> {{-- Gunakan flex-nowrap dan justify-content-center --}}
-                                <a href="" class="btn btn-sm btn-warning" title="Edit Produk">
+                                <a href="{{route('admin.product.edit', $product->id)}}" class="btn btn-sm btn-warning" title="Edit Produk">
                                     <i class="bi bi-pencil"></i>
                                 </a>
-                                <form action="" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus produk ini?');">
+                                <form action="{{route('admin.product.destroy', $product->id)}}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus produk ini?');">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="btn btn-sm btn-danger" title="Hapus Produk">

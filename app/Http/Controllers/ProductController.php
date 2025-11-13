@@ -36,16 +36,8 @@ class ProductController extends Controller
             'stock' => 'required|min:0',
             'image' => 'nullable|mimes:jpeg,jpg,png,webp'
         ]);
-        $image_url = null;
-        if ($request->hasFile('image')) {
-            $file = $request->file('image');
+        $image_url = $this->handleImage($request) ?? null;
 
-            //ubah nama
-            $imgName = time().'_'.$file->getClientOriginalName();
-
-            $file->move(public_path('uploads/image'), $imgName);
-            $image_url = asset('/uploads/image/' . $imgName);
-        }
         Product::create([
             'title' => $request->title,
             'description' => $request->description,
@@ -70,7 +62,8 @@ class ProductController extends Controller
      */
     public function edit(Product $product)
     {
-        //
+        $product = Product::findOrFail($product->id);
+        return view('admin.product.edit', compact('product'));
     }
 
     /**
@@ -78,7 +71,15 @@ class ProductController extends Controller
      */
     public function update(Request $request, Product $product)
     {
-        //
+        $image_url = $this->handleImage($request) ?? $product->image_url;
+        $product->update([
+            'title' => $request->title,
+            'description' => $request->description,
+            'price' => $request->price,
+            'stock' => $request->stock,
+            'image_url' => $image_url
+        ]);
+        return redirect()->route('admin.product.index');
     }
 
     /**
@@ -86,6 +87,20 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
-        //
+        $product->delete();
+        return redirect()->route('admin.product.index');
+    }
+    public function handleImage(Request $request)
+    {
+        if ($request->hasFile('image')) {
+            $file = $request->file('image');
+
+            //ubah nama
+            $imgName = time() . '_' . $file->getClientOriginalName();
+
+            $file->move(public_path('uploads/image'), $imgName);
+            $image_url = asset('/uploads/image/' . $imgName);
+            return $image_url;
+        }
     }
 }
