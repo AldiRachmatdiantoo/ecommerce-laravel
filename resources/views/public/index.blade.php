@@ -39,9 +39,9 @@
                 </div>
             @else
                 <div class="row g-4 justify-content-center">
-                    @foreach ($products as $product)
+                    @foreach ($products->take(8) as $product)
                         {{-- Memanggil komponen product-card --}}
-                        <div class="col-12 col-sm-6 col-md-4 col-lg-3 d-flex">
+                        <div class="col-12 col-sm-6 col-md-4 col-lg-3 d-flex" style="flex-wrap: wrap">
                             @include('public.product-card', ['product' => $product])
                         </div>
                     @endforeach

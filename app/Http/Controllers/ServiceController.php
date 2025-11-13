@@ -29,7 +29,33 @@ class ServiceController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'title' => 'required|max:70|min:5',
+            'description' => 'required',
+            'price' => 'required|min:0',
+            'duration' => 'required',
+            'status' => 'nullable',
+            'image' => 'nullable|mimes:jpeg,jpg,png,webp'
+        ]);
+        $image_url = null;
+        if ($request->hasFile('image')) {
+            $file = $request->file('image');
+
+            //ubah nama
+            $imgName = time() . '_' . $file->getClientOriginalName();
+
+            $file->move(public_path('uploads/image/services'), $imgName);
+            $image_url = asset('/uploads/image/services/' . $imgName);
+        }
+        Service::create([
+            'title' => $request->title,
+            'description' => $request->description,
+            'price' => $request->price,
+            'duration' => $request->duration,
+            'status' => $request->status,
+            'image_url' => $image_url
+        ]);
+        return redirect()->route('admin.service.index');
     }
 
     /**

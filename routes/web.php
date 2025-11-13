@@ -20,6 +20,9 @@ Route::prefix('/admin')->group(function () {
         Route::post('/create', [ServiceController::class, 'store'])->name('admin.service.store');
     });
 });
+Route::prefix('/cart')->group(function(){
+
+});
 Route::get('/', function () {
     return redirect()->route('public.home');
 });
@@ -33,7 +36,7 @@ Route::get('/services', function(){
 })->name('public.services');
 Route::get('/about', function(){
     return view('public.about');
-});
+})->name('public.about');
 Route::get('/contact', function(){
     return view('public.contact');
 });

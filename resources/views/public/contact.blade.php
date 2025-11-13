@@ -40,6 +40,15 @@
                             <div class="text-danger mt-1">{{ $message }}</div>
                         @enderror
                     </div>
+                    {{-- START: Penambahan field Nomor Telepon --}}
+                    <div class="mb-3">
+                        <label for="phone" class="form-label fw-bold">Nomor Telepon (Opsional)</label>
+                        <input type="tel" class="form-control" id="phone" name="phone" placeholder="Contoh: +6281234567890">
+                        @error('phone')
+                            <div class="text-danger mt-1">{{ $message }}</div>
+                        @enderror
+                    </div>
+                    {{-- END: Penambahan field Nomor Telepon --}}
                     <div class="mb-3">
                         <label for="subject" class="form-label fw-bold">Subjek</label>
                         <input type="text" class="form-control" id="subject" name="subject" placeholder="Subjek pesan Anda" required>

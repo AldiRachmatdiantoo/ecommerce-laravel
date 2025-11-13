@@ -19,7 +19,7 @@
         <div class="container">
             <div class="row gx-5 align-items-center">
                 <div class="col-md-6 mb-4 mb-md-0">
-                    <img src="https://via.placeholder.com/600x400/0d6efd/ffffff?text=Misi+Visi+UMKMshop" 
+                    <img src="{{asset('assets/umkm.jpg')}}" 
                          class="img-fluid rounded shadow-sm" alt="Misi dan Visi UMKMshop">
                 </div>
                 <div class="col-md-6">

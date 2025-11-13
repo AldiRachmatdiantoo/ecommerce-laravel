@@ -44,7 +44,7 @@ class ProductController extends Controller
             $imgName = time().'_'.$file->getClientOriginalName();
 
             $file->move(public_path('uploads/image'), $imgName);
-            $image_url = '/uploads/image/' . $imgName;
+            $image_url = asset('/uploads/image/' . $imgName);
         }
         Product::create([
             'title' => $request->title,

@@ -13,9 +13,8 @@
 
     <div class="card shadow-sm">
         <div class="card-body p-4">
-            <form action="{{ url('services') }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('admin.service.store')}}" method="POST" enctype="multipart/form-data">
                 @csrf
-                
                 <div class="mb-3">
                     <label for="title" class="form-label">Judul Service <span class="text-danger">*</span></label>
                     <input type="text" class="form-control @error('title') is-invalid @enderror" id="title" name="title" value="{{ old('title') }}" required>
@@ -40,7 +39,7 @@
                     <div class="col-md-6 mb-3">
                         <label for="price" class="form-label">Harga <span class="text-danger">*</span></label>
                         <div class="input-group">
-                            <span class="input-group-text">$</span>
+                            <span class="input-group-text">Rp</span> {{-- Mengubah dari $ menjadi Rp --}}
                             <input type="number" class="form-control @error('price') is-invalid @enderror" id="price" name="price" value="{{ old('price') }}" step="0.01" min="0" required>
                         </div>
                         @error('price')
@@ -75,22 +74,24 @@
                     @enderror
                 </div>
 
+                {{-- START: Perubahan dari URL Gambar menjadi Upload Gambar --}}
                 <div class="mb-4">
-                    <label for="image_url" class="form-label">URL Gambar Service</label>
-                    <input type="url" class="form-control @error('image_url') is-invalid @enderror" id="image_url" name="image_url" value="{{ old('image_url') }}">
-                    <div class="form-text">Masukkan URL gambar (misal: dari Imgur, Google Photos, dll.).</div>
-                    @error('image_url')
+                    <label for="image" class="form-label">Upload Gambar Service</label>
+                    <input type="file" class="form-control @error('image') is-invalid @enderror" id="image" name="image" accept="image/*">
+                    <div class="form-text">Pilih file gambar untuk service ini. Ukuran maksimal 2MB.</div>
+                    @error('image')
                         <div class="invalid-feedback">
                             {{ $message }}
                         </div>
                     @enderror
                 </div>
+                {{-- END: Perubahan dari URL Gambar menjadi Upload Gambar --}}
 
                 <div class="d-grid gap-2">
                     <button type="submit" class="btn btn-primary btn-lg">
                         <i class="bi bi-save me-2"></i> Simpan Service
                     </button>
-                    <a href="{{ url('services') }}" class="btn btn-outline-secondary btn-lg">Batal</a>
+                    <a href="{{ route('admin.service.index') }}" class="btn btn-outline-secondary btn-lg">Batal</a>
                 </div>
             </form>
         </div>
