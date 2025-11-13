@@ -1,6 +1,6 @@
 @extends('layouts.public-header')
 
-@section('title', 'Hubungi Kami - UMKMshop')
+@section('title', "Hubungi Kami - Di'Shop")
 
 @section('content')
     {{-- Hero Section: Contact Us --}}
@@ -8,7 +8,7 @@
         <div class="container">
             <h1 class="display-4 fw-bold mb-3">Hubungi Kami</h1>
             <p class="lead mb-4">
-                Kami senang mendengar dari Anda! Silakan isi formulir di bawah atau gunakan informasi kontak kami.
+                Kami senang mendengar dari Anda! Silakan isi formulir di bawah atau gunakan informasi kontak kami untuk pertanyaan terkait jasa maupun produk di Di'Shop.
             </p>
             <i class="bi bi-headset display-1 text-white"></i>
         </div>
@@ -20,8 +20,8 @@
             <div class="col-lg-7 mb-5 mb-lg-0">
                 <h2 class="fw-bold mb-4 text-primary">Kirim Pesan Kepada Kami</h2>
                 <p class="text-muted mb-4">
-                    Punya pertanyaan, saran, atau ingin berkolaborasi? Jangan ragu untuk menghubungi kami.
-                    Tim kami akan merespons Anda sesegera mungkin.
+                    Punya pertanyaan, saran, atau ingin bekerja sama? Jangan ragu untuk menghubungi kami.
+                    Tim Di'Shop siap membantu Anda secepat mungkin.
                 </p>
 
                 <form action="" method="POST">
@@ -76,14 +76,14 @@
                     <i class="bi bi-geo-alt-fill text-muted fs-4 me-3"></i>
                     <div>
                         <h5 class="fw-bold mb-0">Alamat</h5>
-                        <p class="mb-0 text-muted">Jl. UMKM Jaya No. 123, Kota Kreatif, Indonesia</p>
+                        <p class="mb-0 text-muted">Jl. Di'Shop Raya No. 123, Kota Kreatif, Indonesia</p>
                     </div>
                 </div>
                 <div class="d-flex align-items-center mb-3">
                     <i class="bi bi-envelope-fill text-muted fs-4 me-3"></i>
                     <div>
                         <h5 class="fw-bold mb-0">Email</h5>
-                        <p class="mb-0 text-muted">info@umkmshop.co.id</p>
+                        <p class="mb-0 text-muted">info@dishop.co.id</p>
                     </div>
                 </div>
                 <div class="d-flex align-items-center mb-3">

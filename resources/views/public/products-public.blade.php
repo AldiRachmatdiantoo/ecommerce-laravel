@@ -1,11 +1,11 @@
 @extends('layouts.public-header')
 
-@section('title', 'Produk UMKMshop')
+@section('title', "Produk Di'Shop")
 
 @section('content')
 <div class="container my-5">
     <div class="d-flex justify-content-between align-items-center mb-4">
-        <h1 class="fw-bold mb-0">Semua Produk UMKMshop</h1>
+        <h1 class="fw-bold mb-0">Semua Produk Di'Shop</h1>
         {{-- Anda bisa tambahkan filter/sort di sini jika diperlukan --}}
         <div class="dropdown">
             <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -84,7 +84,7 @@
     .product-card .card-img-top {
         height: 220px;
         object-fit: cover;
-        border-top-left-radius: calc(0.75rem - 1px); /* Match card-border-radius */
+        border-top-left-radius: calc(0.75rem - 1px);
         border-top-right-radius: calc(0.75rem - 1px);
     }
     .product-card .card-title {
@@ -95,12 +95,12 @@
     }
     .product-card .description {
         line-height: 1.4;
-        min-height: 3.8em; /* Untuk 2-3 baris deskripsi */
+        min-height: 3.8em;
     }
     .product-card .price {
         font-size: 1.4rem;
         font-weight: 700;
-        color: #28a745; /* Hijau untuk harga */
+        color: #28a745;
         margin-top: 1rem;
     }
     .pagination .page-link {

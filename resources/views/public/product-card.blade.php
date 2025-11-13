@@ -1,10 +1,11 @@
+{{-- KARTU PRODUK (Struktur Asli Dipertahankan) --}}
 <div class="card h-100 shadow-sm border-0 product-card-custom" >
     {{-- Badge "Stok Habis" --}}
     @if (($product->stock ?? 0) == 0)
         <span class="badge bg-danger position-absolute top-0 end-0 m-2 z-1 fw-bold fs-6">Stok Habis</span>
     @endif
 
-    {{-- Gambar Produk --}}
+    {{-- Gambar Produk (Style inline Anda tetap ada) --}}
     <img src="{{ $product->image_url ?? 'https://via.placeholder.com/300x220/e9ecef/6c757d?text=Produk+UMKM' }}" 
          class="card-img-top" 
          alt="{{ $product->title ?? 'Nama Produk' }}" 
@@ -26,11 +27,22 @@
             Rp{{ number_format($product->price ?? 0, 0, ',', '.') }}
         </p>
         
-        {{-- Tombol Aksi --}}
-        <div class="d-grid mt-3 action-buttons-container"> {{-- Menambahkan container untuk tombol --}}
-            <a href="" class="btn btn-primary rounded-pill btn-detail">
+        {{-- Tombol Aksi (Struktur asli dipertahankan) --}}
+        <div class="d-grid mt-3 action-buttons-container">
+            {{-- 
+              PERUBAHAN HANYA DI SINI:
+              - href="" menjadi href="#"
+              - Menambahkan data-bs-toggle="modal"
+              - Menambahkan data-bs-target="#..."
+            --}}
+            <a href="#" 
+               class="btn btn-primary rounded-pill btn-detail" 
+               data-bs-toggle="modal" 
+               data-bs-target="#detailModal-{{ $product->id ?? '' }}">
                 <i class="bi bi-eye me-1"></i> Detail
             </a>
+            
+            {{-- Formulir "Tambah Keranjang" Anda tetap di sini --}}
             <form action="" method="POST" class="d-grid mt-2">
                 @csrf
                 <input type="hidden" name="product_id" value="{{ $product->id ?? '' }}">
@@ -43,6 +55,67 @@
     </div>
 </div>
 
+{{-- 
+  ===========================================
+   HTML MODAL DETAIL PRODUK (TAMBAHAN BARU)
+  ===========================================
+  Letakkan ini SETELAH </div> penutup kartu, 
+  (masih di dalam loop @foreach Anda).
+--}}
+<div class="modal fade" id="detailModal-{{ $product->id ?? '' }}" tabindex="-1" aria-labelledby="detailModalLabel-{{ $product->id ?? '' }}" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered"> {{-- modal-lg untuk lebih lebar --}}
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title fw-bold" id="detailModalLabel-{{ $product->id ?? '' }}">
+                    {{ $product->title ?? 'Nama Produk' }}
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            
+            {{-- Isi Modal --}}
+            <div class="modal-body">
+                <div class="row">
+                    {{-- Kolom Gambar --}}
+                    <div class="col-md-6 mb-3 mb-md-0">
+                        <img src="{{ $product->image_url ?? 'https://via.placeholder.com/400x300/e9ecef/6c757d?text=Produk+UMKM' }}" 
+                             class="img-fluid rounded shadow-sm w-100" 
+                             style="object-fit: cover; aspect-ratio: 4/3;"
+                             alt="{{ $product->title ?? 'Nama Produk' }}">
+                    </div>
+                    
+                    {{-- Kolom Detail Teks --}}
+                    <div class="col-md-6 d-flex flex-column">
+                        <h3 class="fw-bold text-success mb-3">
+                            Rp{{ number_format($product->price ?? 0, 0, ',', '.') }}
+                        </h3>
+                        
+                        <p class="mb-1">
+                            <strong>Stok:</strong> 
+                            <span class="badge {{ ($product->stock ?? 0) > 0 ? 'bg-success' : 'bg-danger' }}">
+                                {{ ($product->stock ?? 0) > 0 ? $product->stock : 'Habis' }}
+                            </span>
+                        </p>
+
+                        <hr>
+                        
+                        {{-- Menampilkan deskripsi lengkap (bukan yang dipotong) --}}
+                        <p class="text-muted" style="white-space: pre-wrap;">{{ $product->description ?? 'Deskripsi lengkap produk tidak tersedia.' }}</p>
+                        
+                        {{-- Tombol "Tambah Keranjang" TIDAK ada di sini, karena tetap di kartu --}}
+                    </div>
+                </div>
+            </div>
+            
+            {{-- Footer Modal (Hanya Tombol Tutup) --}}
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-secondary rounded-pill" data-bs-dismiss="modal">Tutup</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{{-- CSS Anda (Tidak berubah, tetap di sini) --}}
 @push('styles')
 <style>
     /* Global styling untuk .card-img-top */
@@ -129,7 +202,7 @@
         color: white;
     }
 
-    /* MEDIA QUERIES untuk responsif */
+    /* MEDIA QUERIES untuk responsif (tidak berubah) */
     @media (max-width: 575.98px) { /* Extra small devices (HP portrait) */
         .product-card-custom {
             margin: 0 auto; 

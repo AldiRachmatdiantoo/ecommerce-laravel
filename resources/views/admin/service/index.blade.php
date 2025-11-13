@@ -6,7 +6,7 @@
 <div class="container-fluid py-4">
     <div class="row mb-3 align-items-center">
         <div class="col-md-6 col-12 mb-2 mb-md-0">
-            <h1 class="mb-0 fs-3">List Service</h1>
+            <h1 class="mb-0 fs-3">List Service</h1> 
         </div>
         <div class="col-md-6 col-12 text-md-end text-start">
             <a href="{{ route('admin.service.create') }}" class="btn btn-primary w-100 w-md-auto">
@@ -15,17 +15,18 @@
         </div>
     </div>
 
+    {{-- Div table-responsive ini akan membuat tabel bisa di-scroll secara horizontal jika terlalu lebar --}}
     <div class="table-responsive shadow-sm rounded-3">
         <table class="table table-bordered table-striped table-hover align-middle mb-0" id="servicesTable">
             <thead class="table-success">
                 <tr>
-                    <th scope="col" class="text-center">ID</th>
+                    <th scope="col" class="text-center">#</th>
                     <th scope="col">Title</th>
-                    <th scope="col" class="d-none d-md-table-cell">Description</th> {{-- Sembunyikan di bawah md --}}
+                    <th scope="col">Description</th> {{-- Hapus d-none d-md-table-cell --}}
                     <th scope="col">Price</th>
-                    <th scope="col" class="d-none d-lg-table-cell text-center">Duration</th> {{-- Sembunyikan di bawah lg --}}
+                    <th scope="col" class="text-center">Duration</th> {{-- Hapus d-none d-lg-table-cell --}}
                     <th scope="col" class="text-center">Status</th>
-                    <th scope="col" class="d-none d-sm-table-cell text-center">Image</th> {{-- Sembunyikan di bawah sm --}}
+                    <th scope="col" class="text-center">Image</th> {{-- Hapus d-none d-sm-table-cell --}}
                     <th scope="col" class="text-center">Actions</th>
                 </tr>
             </thead>
@@ -33,10 +34,10 @@
                 @forelse ($services as $index => $service)
                     <tr>
                         <td class="text-center">{{ $index+1 }}</td>
-                        <td>{{ Str::limit($service->title, 30) }}</td>
-                        <td class="d-none d-md-table-cell">{{ Str::limit($service->description, 50) }}</td>
+                        <td>{{ $service->title }}</td>
+                        <td>{{ $service->description }}</td>
                         <td>Rp.{{ number_format($service->price, 2, ',', '.') }}</td>
-                        <td class="d-none d-lg-table-cell text-center">{{ $service->duration }}</td>
+                        <td class="text-center">{{ $service->duration }}</td>
                         <td class="text-center">
                             @if ($service->status == 'active')
                                 <span class="badge bg-success">{{ ucfirst($service->status) }}</span>
@@ -46,21 +47,18 @@
                                 <span class="badge bg-secondary">{{ ucfirst($service->status) }}</span>
                             @endif
                         </td>
-                        <td class="d-none d-sm-table-cell text-center">
+                        <td class="text-center">
                             @if ($service->image_url)
-                                {{-- Pastikan menggunakan asset() untuk gambar yang diupload ke storage --}}
-                                <img src="{{ $service->image_url }}" class="img-fluid rounded" style="max-width:80px; height: auto;" alt="{{ $service->title }}">
+                                <img src="{{ $service->image_url }}" class="img-fluid rounded" style="max-width:80px; height:auto;" alt="{{ $service->title }}">
                             @else
-                                <img src="https://via.placeholder.com/80x50/f8f9fa/dee2e6?text=No+Image" class="img-fluid rounded" style="max-width:80px; height: auto;" alt="No Image">
+                                <img src="https://via.placeholder.com/80x50/f8f9fa/dee2e6?text=No+Image" class="img-fluid rounded" style="max-width:80px; height:auto;" alt="No Image">
                             @endif
                         </td>
-                        <td>
-                            <div class="d-flex flex-nowrap justify-content-center gap-1">
-                                {{-- Link Edit yang benar --}}
+                        <td class="text-center">
+                            <div class="d-flex flex-wrap justify-content-center gap-1">
                                 <a href="" class="btn btn-sm btn-warning" title="Edit Service">
                                     <i class="bi bi-pencil"></i>
                                 </a>
-                                {{-- Form Hapus yang benar --}}
                                 <form action="" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus service ini?');">
                                     @csrf
                                     @method('DELETE')
@@ -82,64 +80,49 @@
             </tbody>
         </table>
     </div>
-
-    {{-- Paginasi (jika Anda menggunakan paginasi di controller) --}}
-    {{-- Contoh: @if ($services->hasPages()) <div class="mt-4 d-flex justify-content-center"> {{ $services->links() }} </div> @endif --}}
 </div>
 @endsection
 
 @push('styles')
 <style>
-    /* Kustomisasi lebar minimum kolom agar lebih kompak di mobile */
+/* Umum: izinkan teks memecah baris secara default */
+#servicesTable th, #servicesTable td {
+    white-space: normal;
+    word-wrap: break-word;
+    vertical-align: middle;
+}
+
+/* Minimal width untuk setiap kolom agar konten tidak terlalu rapat */
+#servicesTable th:nth-child(1), #servicesTable td:nth-child(1) { min-width: 50px; white-space: nowrap; } /* ID */
+#servicesTable th:nth-child(2), #servicesTable td:nth-child(2) { min-width: 150px; } /* Title */
+#servicesTable th:nth-child(3), #servicesTable td:nth-child(3) { min-width: 250px; } /* Description */
+#servicesTable th:nth-child(4), #servicesTable td:nth-child(4) { min-width: 120px; white-space: nowrap; } /* Price */
+#servicesTable th:nth-child(5), #servicesTable td:nth-child(5) { min-width: 100px; white-space: nowrap; } /* Duration */
+#servicesTable th:nth-child(6), #servicesTable td:nth-child(6) { min-width: 80px; white-space: nowrap; } /* Status */
+#servicesTable th:nth-child(7), #servicesTable td:nth-child(7) { min-width: 100px; white-space: nowrap; } /* Image */
+#servicesTable th:nth-child(8), #servicesTable td:nth-child(8) { min-width: 110px; white-space: nowrap; } /* Actions */
+
+/* Gambar rata tengah */
+#servicesTable td.text-center img {
+    display: block;
+    margin: 0 auto;
+}
+
+/* Penyesuaian font dan padding di mobile */
+@media (max-width: 767.98px) { /* HP */
     #servicesTable th, #servicesTable td {
-        white-space: nowrap; /* Mencegah teks memecah baris terlalu cepat di kolom penting */
+        font-size: 0.85rem; /* Sedikit lebih kecil */
+        padding: 0.6rem; /* Sedikit lebih rapat */
     }
+    /* Tombol tambah full width */
+    .btn.w-100 { width: 100% !important; margin-bottom: 0.5rem; }
+}
 
-    #servicesTable th:nth-child(2), /* Title */
-    #servicesTable td:nth-child(2) {
-        min-width: 120px; 
-        max-width: 150px; /* Batasi lebar title */
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
+@media (max-width: 575.98px) { /* HP kecil */
+    #servicesTable th, #servicesTable td {
+        font-size: 0.8rem;
+        padding: 0.5rem;
     }
-
-    #servicesTable th:nth-child(4), /* Price */
-    #servicesTable td:nth-child(4) {
-        min-width: 100px;
-    }
-    
-    #servicesTable th:nth-child(8), /* Actions */
-    #servicesTable td:nth-child(8) {
-        min-width: 90px; /* Minimal width untuk tombol aksi agar tidak tumpang tindih */
-    }
-
-    /* Override Bootstrap's d-flex default for td to ensure vertical alignment for images */
-    #servicesTable td.text-center img {
-        display: block; /* Gambar menjadi blok untuk centering */
-        margin-left: auto;
-        margin-right: auto;
-    }
-
-    /* Media query untuk tampilan mobile yang sangat sempit */
-    @media (max-width: 575.98px) { /* Extra small devices (HP portrait) */
-        #servicesTable th, #servicesTable td {
-            font-size: 0.85rem; /* Kurangi ukuran font tabel */
-            padding: 0.5rem; /* Kurangi padding tabel */
-        }
-        
-        /* Ensure image column is hidden if needed */
-        #servicesTable th:nth-child(7), /* Image column */
-        #servicesTable td:nth-child(7) {
-            display: none !important; /* Paksa sembunyi jika masih terlihat */
-        }
-    }
-
-    @media (max-width: 767.98px) { /* Small devices (HP landscape, tablet portrait) */
-        .btn.w-100 {
-            width: 100% !important; /* Memastikan tombol "Tambah" full width */
-            margin-bottom: 0.5rem;
-        }
-    }
+}
 </style>
 @endpush

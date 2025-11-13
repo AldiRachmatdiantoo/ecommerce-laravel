@@ -1,3 +1,4 @@
+{{-- KARTU LAYANAN (Struktur Asli Dipertahankan) --}}
 <div class="card h-100 shadow-sm border-0 service-card-custom"> {{-- Menambahkan class custom untuk styling --}}
     {{-- Gambar Service --}}
     {{-- Anda bisa mengganti URL placeholder dengan $service->image_url jika ada --}}
@@ -18,13 +19,75 @@
         </p>
         <p class="card-text fs-5 fw-bold text-info mt-auto price-text">Mulai Rp{{ number_format($service->price ?? 0, 0, ',', '.') }}</p>
         <div class="d-grid mt-2">
-            <a href="" class="btn btn-outline-info rounded-pill btn-detail-service"> {{-- Mengubah href ke named route --}}
+            {{-- 
+              PERUBAHAN HANYA DI SINI:
+              - href="" menjadi href="#"
+              - Menambahkan data-bs-toggle="modal"
+              - Menambahkan data-bs-target="#..." (ID modal yang unik)
+            --}}
+            <a href="#" 
+               class="btn btn-outline-info rounded-pill btn-detail-service" 
+               data-bs-toggle="modal" 
+               data-bs-target="#detailLayananModal-{{ $service->id ?? '' }}">
                 <i class="bi bi-info-circle me-1"></i> Detail Layanan
             </a>
         </div>
     </div>
 </div>
 
+{{-- 
+  ===========================================
+   HTML MODAL DETAIL LAYANAN (TAMBAHAN BARU)
+  ===========================================
+  Letakkan ini SETELAH </div> penutup kartu, 
+  (masih di dalam loop @foreach Anda).
+--}}
+<div class="modal fade" id="detailLayananModal-{{ $service->id ?? '' }}" tabindex="-1" aria-labelledby="detailLayananModalLabel-{{ $service->id ?? '' }}" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered"> {{-- modal-lg untuk lebih lebar --}}
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title fw-bold" id="detailLayananModalLabel-{{ $service->id ?? '' }}">
+                    {{ $service->title ?? 'Nama Layanan' }}
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            
+            {{-- Isi Modal --}}
+            <div class="modal-body">
+                <div class="row">
+                    {{-- Kolom Gambar --}}
+                    <div class="col-md-6 mb-3 mb-md-0">
+                        <img src="{{ $service->image_url ?? 'https://via.placeholder.com/400x300/6c757d/ffffff?text=Layanan+UMKM' }}" 
+                             class="img-fluid rounded shadow-sm w-100" 
+                             style="object-fit: cover; aspect-ratio: 4/3;"
+                             alt="{{ $service->title ?? 'Nama Layanan' }}">
+                    </div>
+                    
+                    {{-- Kolom Detail Teks --}}
+                    <div class="col-md-6 d-flex flex-column">
+                        <h3 class="fw-bold text-info mb-3">
+                            Mulai Rp{{ number_format($service->price ?? 0, 0, ',', '.') }}
+                        </h3>
+
+                        <hr>
+                        
+                        {{-- Menampilkan deskripsi lengkap (bukan yang dipotong) --}}
+                        <p class="text-muted" style="white-space: pre-wrap;">{{ $service->description ?? 'Deskripsi lengkap layanan tidak tersedia.' }}</p>
+                        
+                    </div>
+                </div>
+            </div>
+            
+            {{-- Footer Modal (Hanya Tombol Tutup) --}}
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-secondary rounded-pill" data-bs-dismiss="modal">Tutup</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{{-- CSS Anda (Tidak berubah, tetap di sini) --}}
 @push('styles')
 <style>
     .service-card-custom {

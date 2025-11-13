@@ -1,11 +1,11 @@
 @extends('layouts.public-header')
 
-@section('title', 'Layanan UMKMshop')
+@section('title', "Layanan Di'Shop")
 
 @section('content')
 <div class="container my-5">
     <div class="d-flex justify-content-between align-items-center mb-4">
-        <h1 class="fw-bold mb-0">Jelajahi Layanan Kami</h1>
+        <h1 class="fw-bold mb-0">Jelajahi Layanan Di'Shop</h1>
         {{-- Anda bisa tambahkan filter/sort di sini jika diperlukan --}}
         <div class="dropdown">
             <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -26,13 +26,12 @@
         @forelse ($services as $service)
             <div class="col-12 col-sm-6 col-md-4 col-lg-3 d-flex">
                 <div class="card service-card flex-fill shadow-sm">
-                    {{-- Anda bisa menggunakan ikon atau gambar kecil untuk layanan --}}
+                    {{-- Gambar atau ikon layanan --}}
                     @if ($service->image_url)
                         <img src="{{ $service->image_url }}" 
                              class="card-img-top" 
                              alt="{{ $service->title }}">
                     @else
-                        {{-- Contoh menggunakan ikon sebagai placeholder --}}
                         <div class="card-img-top d-flex justify-content-center align-items-center bg-light" style="height: 220px;">
                             <i class="{{ $service->icon_class ?? 'bi bi-tools' }} display-1 text-primary"></i>
                         </div>
@@ -55,7 +54,7 @@
             <div class="col-12 text-center py-5">
                 <i class="bi bi-emoji-frown display-4 text-muted d-block mb-3"></i>
                 <p class="lead text-muted">Maaf, belum ada layanan yang tersedia saat ini.</p>
-                <p class="text-muted">Tetap terhubung untuk update terbaru!</p>
+                <p class="text-muted">Tetap terhubung untuk update terbaru dari Di'Shop!</p>
             </div>
         @endforelse
     </div>
@@ -97,17 +96,17 @@
     .service-card .card-title {
         font-size: 1.2rem;
         font-weight: 600;
-        color: #0d6efd; /* Biru untuk judul layanan */
+        color: #0d6efd;
         margin-bottom: 0.5rem;
     }
     .service-card .description {
         line-height: 1.4;
-        min-height: 3.8em; /* Untuk 2-3 baris deskripsi */
+        min-height: 3.8em;
     }
     .service-card .price {
         font-size: 1.2rem;
         font-weight: 700;
-        color: #6c757d; /* Abu-abu gelap untuk harga */
+        color: #6c757d;
         margin-top: 1rem;
     }
     .service-card .badge {
