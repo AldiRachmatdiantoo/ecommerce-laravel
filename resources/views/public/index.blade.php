@@ -89,13 +89,61 @@
         </div>
     </section>
 
+    {{-- 
+      ===========================================
+       SECTION BARU: MENGAPA PILIH KAMI
+      ===========================================
+    --}}
+    <section id="why-us" class="py-5 bg-light">
+        <div class="container">
+            <h2 class="text-center mb-5 fw-bold text-dark">Mengapa Memilih Di'Shop?</h2>
+            
+            <div class="row g-4 text-center">
+                {{-- Poin 1: Kualitas --}}
+                <div class="col-md-4 d-flex">
+                    <div class="p-4 shadow-sm bg-white rounded-3 h-100 w-100">
+                        <i class="bi bi-patch-check-fill display-3 text-primary mb-3"></i>
+                        <h4 class="fw-bold">Kualitas Terjamin</h4>
+                        <p class="text-muted mb-0">
+                            Kami hanya menyediakan produk dan jasa dengan standar kualitas terbaik yang telah terverifikasi.
+                        </p>
+                    </div>
+                </div>
+
+                {{-- Poin 2: Harga --}}
+                <div class="col-md-4 d-flex">
+                    <div class="p-4 shadow-sm bg-white rounded-3 h-100 w-100">
+                        <i class="bi bi-tag-fill display-3 text-success mb-3"></i>
+                        <h4 class="fw-bold">Harga Kompetitif</h4>
+                        <p class="text-muted mb-0">
+                            Dapatkan penawaran harga terbaik dan paling bersaing untuk semua kebutuhan Anda.
+                        </p>
+                    </div>
+                </div>
+
+                {{-- Poin 3: Pelayanan --}}
+                <div class="col-md-4 d-flex">
+                    <div class="p-4 shadow-sm bg-white rounded-3 h-100 w-100">
+                        <i class="bi bi-headset display-3 text-info mb-3"></i>
+                        <h4 class="fw-bold">Pelayanan Handal</h4>
+                        <p class="text-muted mb-0">
+                            Tim kami siap membantu Anda dengan respon cepat dan solusi profesional kapan pun Anda butuhkan.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    {{-- Akhir Section Baru --}}
+
+
     {{-- Tentang Di'Shop --}}
     <section id="about" class="py-5 bg-primary text-white text-center">
         <div class="container">
             <h2 class="fw-bold mb-3">Tentang Di'Shop</h2>
             <p class="lead mb-4">
                 Di'Shop adalah toko yang menyediakan berbagai produk dan jasa untuk memenuhi kebutuhan Anda —
-                mulai dari barang berkualitas hingga layanan profesional.  
+                mulai dari barang berkualitas hingga layanan profesional. 
                 Kami berkomitmen memberikan pengalaman berbelanja yang mudah, cepat, dan terpercaya.
             </p>
             <a href="" class="btn btn-light btn-lg rounded-pill px-4">

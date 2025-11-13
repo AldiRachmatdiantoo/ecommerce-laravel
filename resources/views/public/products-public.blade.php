@@ -38,7 +38,7 @@
                         <h5 class="card-title text-truncate">{{ $product->title }}</h5>
                         <p class="card-text text-muted description">{{ Str::limit($product->description, 70) }}</p>
                         <p class="card-text price mt-auto">Rp{{ number_format($product->price, 0, ',', '.') }}</p>
-                        <a href="{{ url('products/' . $product->id) }}" class="btn btn-primary btn-sm rounded-pill">
+                        <a href="{{ route('public.product-show', $product->id)}}" class="btn btn-primary btn-sm rounded-pill">
                             <i class="bi bi-info-circle me-1"></i> Detail Produk
                         </a>
                     </div>

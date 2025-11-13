@@ -39,12 +39,12 @@
                     
                     <div class="card-body d-flex flex-column text-center">
                         <h5 class="card-title text-truncate">{{ $service->title }}</h5>
-                        <p class="card-text text-muted description">{{ Str::limit($service->description, 70) }}</p>
+                        <p class="card-text text-muted description ">{{ Str::limit($service->description, 70) }}</p>
                         <p class="card-text price mt-auto">Mulai dari Rp{{ number_format($service->price, 0, ',', '.') }}</p>
                         <span class="badge {{ $service->status == 'active' ? 'bg-success' : 'bg-warning text-dark' }} mb-3">
                             {{ ucfirst($service->status ?? 'Draft') }}
                         </span>
-                        <a href="{{ url('services/' . $service->id) }}" class="btn btn-outline-primary btn-sm rounded-pill">
+                        <a href="{{ route('public.service-show', $service->id)}}" class="btn btn-outline-primary btn-sm rounded-pill">
                             <i class="bi bi-arrow-right-circle me-1"></i> Lihat Detail
                         </a>
                     </div>
@@ -102,6 +102,8 @@
     .service-card .description {
         line-height: 1.4;
         min-height: 3.8em;
+        /* --- PERUBAHAN DI SINI --- */
+        text-align: justify; 
     }
     .service-card .price {
         font-size: 1.2rem;

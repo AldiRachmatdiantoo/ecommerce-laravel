@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@yield('title', 'Admin Dashboard - UMKM')</title>
+    <title>@yield('title', 'Admin Dashboard - Shop')</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
@@ -159,7 +159,7 @@
     {{-- Offcanvas Sidebar (untuk mobile/tablet) --}}
     <div class="offcanvas offcanvas-start bg-dark text-white" tabindex="-1" id="sidebarOffcanvas" aria-labelledby="sidebarOffcanvasLabel">
         <div class="offcanvas-header bg-dark">
-            <h5 class="offcanvas-title" id="sidebarOffcanvasLabel">UMKM Admin</h5>
+            <h5 class="offcanvas-title" id="sidebarOffcanvasLabel">Admin</h5>
             <button type="button" class="btn-close btn-close-white text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
         <div class="offcanvas-body p-0">
@@ -192,7 +192,7 @@
     {{-- Hapus d-none d-lg-flex karena sidebar ini sekarang selalu ada di DOM, tapi lebarnya diatur CSS --}}
     <div id="sidebar-wrapper" class="flex-column">
         <div class="sidebar-heading">
-            UMKM Admin
+            Admin
         </div>
         <nav class="navbar-nav flex-column">
             <a class="sidebar-nav-link {{ Request::routeIs('admin.dashboard') ? 'active' : '' }}" href="#">
