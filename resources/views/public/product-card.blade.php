@@ -1,0 +1,147 @@
+<div class="card h-100 shadow-sm border-0 product-card-custom">
+    {{-- Badge "Stok Habis" --}}
+    @if (($product->stock ?? 0) == 0)
+        <span class="badge bg-danger position-absolute top-0 end-0 m-2 z-1 fw-bold fs-6">Stok Habis</span>
+    @endif
+
+    {{-- Gambar Produk --}}
+    <img src="{{ $product->image_url ?? 'https://via.placeholder.com/300x220/e9ecef/6c757d?text=Produk+UMKM' }}" 
+         class="card-img-top" 
+         alt="{{ $product->title ?? 'Nama Produk' }}" 
+         style="height: 200px; object-fit: cover; border-top-left-radius: 0.5rem; border-top-right-radius: 0.5rem;">
+    
+    <div class="card-body d-flex flex-column">
+        {{-- Judul Produk --}}
+        <h5 class="card-title fw-bold mb-2 product-title-limit" title="{{ $product->title ?? 'Nama Produk' }}">
+            {{ $product->title ?? 'Nama Produk' }}
+        </h5>
+        
+        {{-- Deskripsi Produk --}}
+        <p class="card-text text-muted small mb-3 description-limit" title="{{ $product->description ?? 'Deskripsi singkat produk ini.' }}">
+            {{ Str::limit($product->description ?? 'Deskripsi singkat produk ini untuk memberikan gambaran kepada pembeli.', 60, '...') }}
+        </p>
+        
+        {{-- Harga Produk --}}
+        <p class="card-text fs-5 fw-bold text-success mt-auto price-text">
+            Rp{{ number_format($product->price ?? 0, 0, ',', '.') }}
+        </p>
+        
+        {{-- Tombol Aksi --}}
+        <div class="d-grid mt-3">
+            <a href="" class="btn btn-primary rounded-pill btn-detail">
+                <i class="bi bi-eye me-1"></i> Detail
+            </a>
+            <form action="" method="POST" class="d-grid mt-2">
+                @csrf
+                <input type="hidden" name="product_id" value="{{ $product->id ?? '' }}">
+                <input type="hidden" name="quantity" value="1"> {{-- Default quantity --}}
+                <button type="submit" class="btn btn-outline-primary rounded-pill btn-add-cart" {{ (($product->stock ?? 0) == 0) ? 'disabled' : '' }}>
+                    <i class="bi bi-cart-plus me-1"></i> Tambah Keranjang
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+
+@push('styles')
+<style>
+    /* Global styling untuk .card-img-top */
+    .card-img-top {
+        width: 100%; /* Pastikan gambar mengisi 100% lebar parent */
+        max-width: 100%; /* Pastikan gambar tidak melebihi lebar parent */
+    }
+
+    /* Styling tambahan untuk card produk */
+    .product-card-custom {
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+        border-radius: 0.75rem; 
+        position: relative; 
+        overflow: hidden; 
+    }
+    .product-card-custom:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+    }
+    .product-card-custom .badge {
+        font-size: 0.85em; 
+        padding: 0.4em 0.7em;
+        border-radius: 0.5rem;
+        z-index: 10; 
+    }
+    .product-card-custom .card-img-top {
+        height: 200px; 
+        object-fit: cover;
+        border-top-left-radius: 0.5rem; 
+        border-top-right-radius: 0.5rem;
+    }
+    .product-card-custom .card-body {
+        padding: 1rem; 
+    }
+    .product-card-custom .product-title-limit {
+        font-size: 1.15rem; 
+        line-height: 1.4;
+        height: 2.8em; 
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 2; 
+        -webkit-box-orient: vertical;
+    }
+    .product-card-custom .description-limit {
+        line-height: 1.3;
+        min-height: 2.6em; 
+        max-height: 2.6em; 
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 2; 
+        -webkit-box-orient: vertical;
+    }
+    .product-card-custom .price-text {
+        color: #198754; 
+        font-size: 1.3rem; 
+        white-space: nowrap; 
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+    .product-card-custom .btn-detail {
+        background-color: #0d6efd; 
+        border-color: #0d6efd;
+    }
+    .product-card-custom .btn-add-cart {
+        color: #0d6efd;
+        border-color: #0d6efd;
+    }
+    .product-card-custom .btn-add-cart:hover {
+        background-color: #0d6efd;
+        color: white;
+    }
+
+    /* MEDIA QUERIES untuk responsif */
+    @media (max-width: 575.98px) { /* Extra small devices (HP portrait) */
+        .product-card-custom {
+            margin: 0 auto; /* Tengahkankan card di layar HP */
+            width: 95%; /* Berikan sedikit padding dari tepi layar */
+            max-width: 320px; /* Batasi lebar maksimal agar tidak terlalu besar di tablet kecil */
+        }
+        .product-card-custom .btn-detail,
+        .product-card-custom .btn-add-cart {
+            font-size: 0.9rem; 
+            padding: 0.6rem 0.8rem;
+        }
+        .product-card-custom .product-title-limit {
+            font-size: 1rem; 
+            height: 2.6em; 
+        }
+        .product-card-custom .price-text {
+            font-size: 1.1rem; 
+        }
+    }
+
+    /* Pastikan gambar di navbar tidak menyebabkan overflow */
+    .navbar-brand img {
+        max-height: 40px; /* Batasi tinggi logo di navbar */
+        width: auto;
+    }
+</style>
+@endpush
